@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">TonjooTest</string>
+    <string name="no_internet_connection">No internet connection.</string>
+    <string name="no_contact">No contact found.</string>
+</resources>
