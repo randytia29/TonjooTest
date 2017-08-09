@@ -16,6 +16,8 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -53,8 +55,8 @@ public class TonjooAdapter extends ArrayAdapter<Tonjoo> {
         TextView emailView = (TextView) listItemView.findViewById(R.id.email_text_view);
         emailView.setText(currentTonjoo.getmEmail());
 
-        TextView imageView = (TextView) listItemView.findViewById(R.id.image);
-        imageView.setText(currentTonjoo.getmAvatar());
+        ImageView imageView = (ImageView) listItemView.findViewById(R.id.image);
+        Picasso.with(getContext()).load(currentTonjoo.getmAvatar()).into(imageView);
 
         return listItemView;
     }
