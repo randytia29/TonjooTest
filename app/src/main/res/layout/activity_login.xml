@@ -1,0 +1,50 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.randytia.tonjootest.LoginActivity">
+
+    <TextView
+        android:id="@+id/dummy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dummy Contact"
+        android:textAlignment="center"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:layout_marginTop="15dp" />
+
+    <LinearLayout
+        android:id="@+id/linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_margin="15dp">
+
+        <EditText
+            android:id="@+id/editTextUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:inputType="textEmailAddress"
+            android:hint="Email (dummy@test.com)"/>
+
+        <EditText
+            android:id="@+id/editTextPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:inputType="textPassword"
+            android:hint="Password (dummytest)"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/buttonLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Login"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/linear" />
+</RelativeLayout>

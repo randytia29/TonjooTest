@@ -1,6 +1,7 @@
 package com.example.randytia.tonjootest;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.Loader;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -12,8 +13,12 @@ import android.app.LoaderManager.LoaderCallbacks;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,12 +33,18 @@ public class TonjooActivity extends AppCompatActivity implements LoaderCallbacks
 
     private TextView mEmptyStateTextView;
 
+    private Button buttonLogout;
+
+    private FirebaseAuth firebaseAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         ListView tonjooListView = (ListView) findViewById(R.id.list);
+
+        firebaseAuth = FirebaseAuth.getInstance();
 
         mEmptyStateTextView = (TextView) findViewById(R.id.empty_view);
         tonjooListView.setEmptyView(mEmptyStateTextView);
@@ -59,7 +70,7 @@ public class TonjooActivity extends AppCompatActivity implements LoaderCallbacks
             // null untuk bundle-nya. Masukkan aktivitas ini untuk parameter LoaderCallbacks (yang valid
             // karena aktivitas ini mengimplementasikan antarmuka LoaderCallbacks).
             loaderManager.initLoader(TONJOO_LOADER_ID, null, this);
-        }else {
+        } else {
             // Otherwise, display error
             // First, hide loading indicator so error message will be visible
             View loadingIndicator = findViewById(R.id.loading_indicator);
@@ -68,6 +79,16 @@ public class TonjooActivity extends AppCompatActivity implements LoaderCallbacks
             // Update empty state with no connection error message
             mEmptyStateTextView.setText(R.string.no_internet_connection);
         }
+
+        buttonLogout = (Button) findViewById(R.id.buttonLogout);
+        buttonLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                firebaseAuth.signOut();
+                finish();
+                startActivity(new Intent(TonjooActivity.this, LoginActivity.class));
+            }
+        });
     }
 
     @Override
@@ -95,6 +116,9 @@ public class TonjooActivity extends AppCompatActivity implements LoaderCallbacks
         if (tonjoos != null && !tonjoos.isEmpty()) {
             adapter.addAll(tonjoos);
         }
+
+        buttonLogout = (Button) findViewById(R.id.buttonLogout);
+        buttonLogout.setVisibility(View.VISIBLE);
     }
 
     @Override

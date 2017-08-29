@@ -17,8 +17,6 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.InputStream;
-import java.io.OutputStream;
 
 /**
  * Created by Randytia on 08/08/2017.
@@ -32,7 +30,6 @@ public final class QueryUtils {
     }
 
     private static ArrayList<Tonjoo> extractTonjoo(String tonjooJSON) {
-
         if (TextUtils.isEmpty(tonjooJSON)) {
             return null;
         }
@@ -41,10 +38,10 @@ public final class QueryUtils {
 
         try {
             JSONObject jsonObj = new JSONObject(tonjooJSON);
-            JSONArray features = jsonObj.getJSONArray("data");
+            JSONArray data = jsonObj.getJSONArray("data");
 
-            for (int i = 0; i < features.length(); i++) {
-                JSONObject tonjoo = features.getJSONObject(i);
+            for (int i = 0; i < data.length(); i++) {
+                JSONObject tonjoo = data.getJSONObject(i);
 
                 String firstName = tonjoo.getString("first_name");
                 String lastName = tonjoo.getString("last_name");
@@ -121,11 +118,13 @@ public final class QueryUtils {
     }
 
     public static List<Tonjoo> fetchTonjooData(String requestUrl) {
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        /**
+         try {
+         Thread.sleep(2000);
+         } catch (InterruptedException e) {
+         e.printStackTrace();
+         }
+         **/
 
         // Create URL object
         URL url = createUrl(requestUrl);
