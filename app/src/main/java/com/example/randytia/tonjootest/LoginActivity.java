@@ -34,16 +34,16 @@ public class LoginActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        if(firebaseAuth.getCurrentUser()!= null){
+        if (firebaseAuth.getCurrentUser() != null) {
             finish();
             startActivity(new Intent(getApplicationContext(), TonjooActivity.class));
         }
 
-        editTextUsername = (EditText)findViewById(R.id.editTextUsername);
-        editTextPassword = (EditText)findViewById(R.id.editTextPassword);
-        buttonLogin = (Button)findViewById(R.id.buttonLogin);
+        editTextUsername = (EditText) findViewById(R.id.editTextUsername);
+        editTextPassword = (EditText) findViewById(R.id.editTextPassword);
+        buttonLogin = (Button) findViewById(R.id.buttonLogin);
 
-        progressDialog=new ProgressDialog(this);
+        progressDialog = new ProgressDialog(this);
 
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,16 +54,16 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void userLogin(){
-        String username = editTextUsername.getText().toString().trim();
+    private void userLogin() {
+        final String username = editTextUsername.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
 
-        if(TextUtils.isEmpty(username)){
+        if (TextUtils.isEmpty(username)) {
             Toast.makeText(this, "Please enter username", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if(TextUtils.isEmpty(password)){
+        if (TextUtils.isEmpty(password)) {
             Toast.makeText(this, "Please enter password", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -71,9 +71,13 @@ public class LoginActivity extends AppCompatActivity {
         firebaseAuth.signInWithEmailAndPassword(username, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
+                progressDialog.dismiss();
+
+                if (task.isSuccessful()) {
                     finish();
                     startActivity(new Intent(getApplicationContext(), TonjooActivity.class));
+                } else {
+                    Toast.makeText(LoginActivity.this, "Email or password incorrect", Toast.LENGTH_SHORT).show();
                 }
             }
         });
